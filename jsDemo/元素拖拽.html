@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>元素拖拽demo</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #wrap{
+            width:500px;
+            height:500px;
+            border:1px solid #000;
+            position:relative;
+            margin:0 auto;
+        }
+        #inner{
+            width:100px;
+            height:100px;
+            position: absolute;
+            left:0;
+            top:0;
+            background-color: aqua;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="inner"></div>
+</div>
+<script>
+    var inner = document.getElementById("inner");
+    var wrap = document.getElementById("wrap");
+    function bindEvent(el,wrap){
+        var clientX,     //鼠标落下的x坐标
+            clientY,     //鼠标落下的y坐标
+            elLeft,     //元素的left值
+            elTop,      //元素的top值
+            disLeft,    //鼠标点击位置距元素左边缘距离
+            disTop,     //鼠标点击位置距元素上边缘距离
+            isDrag = false;     //元素是否在拖动
+        el.onmousedown = function(e) {
+            isDrag = true;
+            var event = e || event;
+            clientX = event.clientX;
+            clientY = event.clientY;
+            elLeft = el.offsetLeft;
+            elTop = el.offsetTop;
+            disLeft = clientX - elLeft;
+            disTop = clientY - elTop;
+            wrap.onmousemove = function (e) {
+                var event = e || event;
+                if(isDrag){
+                    elLeft = event.clientX - disLeft;
+                    elTop = event.clientY - disTop;
+                    if(elLeft < 0){
+                        elLeft = 0;
+                    }else if(elLeft > this.clientWidth - el.offsetWidth){
+                        elLeft = this.clientWidth - el.offsetWidth;
+                    }
+                    if(elTop < 0){
+                        elTop = 0;
+                    }else if(elTop > this.clientHeight - el.offsetHeight){
+                        elTop = this.clientHeight - el.offsetHeight;
+                    }
+                    el.style.left = elLeft + 'px';
+                    el.style.top = elTop + 'px';
+                }
+            };
+            document.onmouseup = function () {
+                isDrag = false;
+            };
+        }
+    }
+    bindEvent(inner,wrap);
+</script>
+</body>
+</html>
