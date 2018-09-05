@@ -1,0 +1,56 @@
+/*容器*/
+.container{
+    perspective: 1000px;
+}
+/*piece盒子*/
+.piece-box{
+    perspective-origin: 50% 50%;
+    transform-style: preserve-3d;
+    position: relative;
+    width:200px;
+    height:200px;
+    margin:300px auto;
+    animation: pieceRotate 5s linear infinite;
+}
+/*piece通用样式*/
+.piece{
+    position: absolute;
+    width:200px;
+    height:200px;
+    background-color: red;
+    opacity: .5;
+}
+.piece-1{
+    background-color: #F66;
+    transform:rotateY(0deg) translateZ(173.2px);
+}
+.piece-2{
+    background-color: #FF0;
+    transform:rotateY(60deg) translateZ(173.2px);
+}
+.piece-3{
+    background-color: #069;
+    transform:rotateY(120deg) translateZ(173.2px);
+}
+.piece-4{
+    background-color: #099;
+    transform:rotateY(180deg) translateZ(173.2px);
+}
+.piece-5{
+    background-color: #F03;
+    transform:rotateY(240deg) translateZ(173.2px);
+}
+.piece-6{
+    background-color: #F60;
+    transform:rotateY(300deg) translateZ(173.2px);
+}
+
+/*走马灯动画*/
+@keyframes pieceRotate {
+    0%{
+        transform:rotateY(0deg);
+    }
+    100%{
+        transform: rotateY(360deg);
+    }
+}
